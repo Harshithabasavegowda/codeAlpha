@@ -1,0 +1,154 @@
+ScientificCalculator
+
+package Examples1;
+
+
+	import java.util.Scanner;
+
+	public class ScientificCalculator {
+	    public static void main(String[] args) {
+	        Scanner scanner = new Scanner(System.in);
+
+	        while (true) {
+	            System.out.println("Scientific Calculator Menu:");
+	            System.out.println("1. Addition (+)");
+	            System.out.println("2. Subtraction (-)");
+	            System.out.println("3. Multiplication (*)");
+	            System.out.println("4. Division (/)");
+	            System.out.println("5. Square Root (√)");
+	            System.out.println("6. Sine (sin)");
+	            System.out.println("7. Cosine (cos)");
+	            System.out.println("8. Tangent (tan)");
+	            System.out.println("9. Exit");
+	            System.out.print("Enter your choice: ");
+
+	            int choice = scanner.nextInt();
+
+	            switch (choice) {
+	                case 1:
+	                    System.out.print("Enter first number: ");
+	                    double num1 = scanner.nextDouble();
+	                    System.out.print("Enter second number: ");
+	                    double num2 = scanner.nextDouble();
+	                    double sum = num1 + num2;
+	                    System.out.println("Result: " + sum);
+	                    break;
+	                case 2:
+	                    System.out.print("Enter first number: ");
+	                    num1 = scanner.nextDouble();
+	                    System.out.print("Enter second number: ");
+	                    num2 = scanner.nextDouble();
+	                    double difference = num1 - num2;
+	                    System.out.println("Result: " + difference);
+	                    break;
+	                case 3:
+	                    System.out.print("Enter first number: ");
+	                    num1 = scanner.nextDouble();
+	                    System.out.print("Enter second number: ");
+	                    num2 = scanner.nextDouble();
+	                    double product = num1 * num2;
+	                    System.out.println("Result: " + product);
+	                    break;
+	                case 4:
+	                    System.out.print("Enter dividend: ");
+	                    num1 = scanner.nextDouble();
+	                    System.out.print("Enter divisor: ");
+	                    num2 = scanner.nextDouble();
+	                    if (num2 == 0) {
+	                        System.out.println("Division by zero is not allowed.");
+	                    } else {
+	                        double quotient = num1 / num2;
+	                        System.out.println("Result: " + quotient);
+	                    }
+	                    break;
+	                case 5:
+	                    System.out.print("Enter a number: ");
+	                    num1 = scanner.nextDouble();
+	                    if (num1 < 0) {
+	                        System.out.println("Square root of a negative number is not allowed.");
+	                    } else {
+	                        double squareRoot = calculateSquareRoot(num1);
+	                        System.out.println("Result: " + squareRoot);
+	                    }
+	                    break;
+	                case 6:
+	                    System.out.print("Enter an angle in degrees: ");
+	                    double angle = scanner.nextDouble();
+	                    double sine = calculateSine(angle);
+	                    System.out.println("Result: " + sine);
+	                    break;
+	                case 7:
+	                    System.out.print("Enter an angle in degrees: ");
+	                    angle = scanner.nextDouble();
+	                    double cosine = calculateCosine(angle);
+	                    System.out.println("Result: " + cosine);
+	                    break;
+	                case 8:
+	                    System.out.print("Enter an angle in degrees: ");
+	                    angle = scanner.nextDouble();
+	                    double tangent = calculateTangent(angle);
+	                    System.out.println("Result: " + tangent);
+	                    break;
+	                case 9:
+	                    System.out.println("Exiting Scientific Calculator.");
+	                    scanner.close();
+	                    System.exit(0);
+	                default:
+	                    System.out.println("Invalid choice. Please try again.");
+	            }
+	        }
+	    }
+
+	    // Manual calculation of square root
+	    private static double calculateSquareRoot(double num) {
+	        double guess = num / 2.0;
+	        double epsilon = 1e-6; // A small value to check for convergence
+	        while (Math.abs(guess * guess - num) > epsilon) {
+	            guess = 0.5 * (guess + num / guess);
+	        }
+	        return guess;
+	    }
+
+	    // Manual calculation of sine
+	    private static double calculateSine(double degrees) {
+	        double radians = Math.toRadians(degrees);
+	        double sine = 0;
+	        for (int i = 0; i < 10; i++) {
+	            sine += Math.pow(-1, i) * Math.pow(radians, 2 * i + 1) / factorial(2 * i + 1);
+	        }
+	        return sine;
+	    }
+
+	    // Manual calculation of cosine
+	    private static double calculateCosine(double degrees) {
+	        double radians = Math.toRadians(degrees);
+	        double cosine = 0;
+	        for (int i = 0; i < 10; i++) {
+	            cosine += Math.pow(-1, i) * Math.pow(radians, 2 * i) / factorial(2 * i);
+	        }
+	        return cosine;
+	    }
+
+	    // Manual calculation of tangent
+	    private static double calculateTangent(double degrees) {
+	        double sine = calculateSine(degrees);
+	        double cosine = calculateCosine(degrees);
+	        if (cosine == 0) {
+	            System.out.println("Tangent is undefined for this angle.");
+	            return Double.NaN;
+	        }
+	        return sine / cosine;
+	    }
+
+	    // Helper method to calculate factorial
+	    private static double factorial(int n) {
+	        double result = 1;
+	        for (int i = 1; i <= n; i++) {
+	            result *= i;
+	        }
+	        return result;
+	    }
+	}
+
+
+
